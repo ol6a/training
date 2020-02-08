@@ -1,9 +1,14 @@
+
 from selenium import webdriver
 
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+
+    def go_to_home(self):
+        wd = self.wd
+        wd.get("https://test01.moi-uni.ru/")
 
     def confirm_order(self):
         wd = self.wd
@@ -13,6 +18,8 @@ class Application:
         wd = self.wd
         wd.find_element_by_link_text("скачать квитанцию").click()
         wd.find_element_by_id("button-payment-method").click()
+
+
 
     def payment_address(self):
         wd = self.wd
@@ -69,12 +76,7 @@ class Application:
             return False
         return True
 
-    def is_alert_present(self):
-        try:
-            self.wd.switch_to_alert()
-        except NoAlertPresentException as e:
-            return False
-        return True
+
 
     def close_alert_and_get_its_text(self):
         try:
@@ -87,6 +89,8 @@ class Application:
             return alert_text
         finally:
             self.accept_next_alert = True
+
+
     def logout(self):
         wd = self.wd
         wd.find_element_by_xpath("(//a[contains(text(),'Выход')])[3]").click()
@@ -94,8 +98,5 @@ class Application:
     def destroy(self):
         self.wd.quit()
 
-    def go_to_home(self):
-        wd = self.wd
-        wd.get("https://test01.moi-uni.ru/")
 
 

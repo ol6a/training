@@ -1,31 +1,28 @@
 # -*- coding: utf-8 -*-
-import unittest
+
+import pytest
 from application import Application
-from selenium import webdriver
-from selenium.common.exceptions import NoAlertPresentException
-from selenium.common.exceptions import NoSuchElementException
 from fiz_contact import Fiz_contact
 
-class reg_zakaz_fiz (unittest.TestCase):
-    def setUp(self):
-        self.app = Application()
 
-    def test_regfiz_zakaz(self):
+@pytest.fixture
+def app(request):
+    fixture = Application()
+    request.addfinalizer(fixture.destroy)
+    return fixture
 
-        self.app.go_to_home()
-        self.app.registration_fiz(Fiz_contact("мтест164", "мтест164", "мтест164", "m164@moi-uni.ru", "89213456789", "12345", "12345"))
-        self.app.go_to_catalog()
-        self.app.go_to_number_category()
-        self.app.select_course()
-        self.app.registration_order()
-        wd.find_element_by_id("button-payment-address").click()
-        self.app.payment_address()
-        self.app.oplata_kvit()
-        self.app.confirm_order()
-        self.app.logout()
+def test_regfiz_zakaz(app):
+    app.go_to_home()
+    app.registration_fiz(Fiz_contact("мтест167", "мтест167", "мтест167", "m167@moi-uni.ru", "89213456789", "12345", "12345"))
+    app.go_to_catalog()
+    app.go_to_number_category()
+    app.select_course()
+    app.registration_order()
+    app.payment_address()
+    app.payment_address()
+    app.oplata_kvit()
+    app.confirm_order()
+    app.logout()
 
-    def tearDown(self):
-        self.app.destroy()
 
-if __name__ == "__main__":
-     unittest.main()
+
