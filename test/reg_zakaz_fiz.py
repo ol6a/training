@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from application import Application
-from fiz_contact import Fiz_contact
+from fixture.application import Application
+from model.fiz_contact import Fiz_contact
 
 
 @pytest.fixture
